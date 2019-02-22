@@ -18,6 +18,7 @@ mat-toolbar {
 
 a {
   color: white;
+  text-decoration: none;
 }
 
 mat-icon {

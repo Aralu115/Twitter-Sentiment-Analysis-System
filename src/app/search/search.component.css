@@ -1,6 +1,6 @@
 mat-card {
   width: 500px;
-  height: 200px;
+  height: 225px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -15,4 +15,9 @@ mat-card {
 
 button {
   width: 50%;
+  font-size: 16px;
+}
+
+mat-slider {
+  width: 100%;
 }
