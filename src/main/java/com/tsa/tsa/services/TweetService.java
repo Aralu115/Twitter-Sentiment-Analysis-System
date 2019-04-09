@@ -1,5 +1,6 @@
-package com.tsa.tsa.conn;
+package com.tsa.tsa.services;
 
+import org.springframework.stereotype.Service;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -7,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TwitterApi {
+@Service
+public class TweetService {
+
     ConfigurationBuilder cb;
     TwitterFactory tf;
     Twitter twitter;
 
-    public TwitterApi() {
+    public TweetService() {
         this.cb = new ConfigurationBuilder();
         this.cb.setDebugEnabled(true)
                 .setOAuthConsumerKey(System.getenv("TWITTER_CONSUMER_KEY"))
@@ -23,9 +26,12 @@ public class TwitterApi {
         this.twitter = tf.getInstance();
     }
 
-    public List<String> searchTweets(String search) {
+    public List<String> grabTweets(String term, String num) {
+        System.out.println(num);
+        int tweetNum = Integer.parseInt(num);
         try {
-            Query query = new Query(search);
+            Query query = new Query(term);
+            query.setCount(tweetNum);
             QueryResult result = this.twitter.search(query);
             return result.getTweets().stream()
                     .map(item -> item.getText())
@@ -36,4 +42,8 @@ public class TwitterApi {
         }
     }
 
+    public String getTweet() {
+        List list = grabTweets("a", "1");
+        return list.get(0).toString();
+    }
 }
