@@ -15,23 +15,14 @@ public class DatabaseApi {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static final String SQL = "select * from people";
-
-    public List<Test> isData() {
+    public List<Map<String, Object>> selectQuery(String SQL) {
         List<Test> tests = new ArrayList<Test>();
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL);
-
-        for (Map<String, Object> row : rows) {
-            Test test = new Test();
-            test.setId((int)row.get("id"));
-            test.setFirst((String)row.get("first"));
-            test.setLast((String)row.get("last"));
-
-            tests.add(test);
-        }
-
-        return tests;
+        return rows;
     }
 
+    public void executeQuery(String query) {
+        jdbcTemplate.execute(query);
+    }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
@@ -25,8 +26,8 @@ public class RestApiController {
     public TweetService tweetService;
 
     @RequestMapping("/test")
-    public List<Test> testInfo() {
-        List<Test> tests = api.isData();
+    public List<Map<String, Object>> testInfo() {
+        List<Map<String, Object>> tests = api.selectQuery("Select * from hl1");
         return tests;
     }
 
