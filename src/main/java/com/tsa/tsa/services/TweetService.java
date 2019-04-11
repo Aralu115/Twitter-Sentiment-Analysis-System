@@ -15,6 +15,9 @@ public class TweetService {
     TwitterFactory tf;
     Twitter twitter;
 
+    public ArrayList<String> terms = new ArrayList<>();
+    public int testDataPosition = 0;
+
     public TweetService() {
         this.cb = new ConfigurationBuilder();
         this.cb.setDebugEnabled(true)
@@ -24,6 +27,11 @@ public class TweetService {
                 .setOAuthAccessTokenSecret(System.getenv("TWITTER_ACCESS_SECRET"));
         this.tf = new TwitterFactory(cb.build());
         this.twitter = tf.getInstance();
+        terms.add("Apple");
+        terms.add("Tesla");
+        terms.add("Sony");
+        terms.add("Toyota");
+        terms.add("Trump");
     }
 
     public List<String> grabTweets(String term, String num) {
@@ -43,7 +51,8 @@ public class TweetService {
     }
 
     public String getTweet() {
-        List list = grabTweets("a", "1");
-        return list.get(0).toString();
+        List<String> list = grabTweets(terms.get(testDataPosition), "1");
+        if (testDataPosition == 4) {testDataPosition = 0;} else {testDataPosition++;}
+        return list.get(0);
     }
 }
