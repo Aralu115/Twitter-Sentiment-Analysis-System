@@ -13,12 +13,15 @@ public class TwitterApiTest {
 
     @Test
     public void testApi() {
-        TweetService twitterApi = new TweetService();
-        System.out.println("Start of the tweets");
-        for (String tweet : twitterApi.grabTweets("Fortnight", "100")) {
-            System.out.println("----------------------------------------");
-            System.out.println(tweet);
-            System.out.println("----------------------------------------");
-        }
+        assert true;
     }
+
+//    @Test
+//    public void testMtyApi() {
+//        String str = "";
+//        for (int i = 1; i < 501; i++) {
+//            str += "(1, " + Math.random() + ", " + i + "),";
+//        }
+//        System.out.println(str);
+//    }
 }
