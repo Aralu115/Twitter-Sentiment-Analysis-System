@@ -1,0 +1,15 @@
+<div>
+  <mat-card>
+    <mat-card-title>Build the Test Data <mat-icon (click)="refresh()">refresh</mat-icon></mat-card-title>
+    <mat-card-content>
+      <form class="search">
+        <mat-form-field class="full-width">
+          <textarea matInput [(ngModel)]="tweet" name="tweet" rows="5" readonly></textarea><br>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="getTweet()">Positive</button><br><br>
+        <button mat-raised-button color="primary" (click)="getTweet()">Negative</button><br><br>
+        <button mat-raised-button color="primary" (click)="getTweet()">Neutral</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
