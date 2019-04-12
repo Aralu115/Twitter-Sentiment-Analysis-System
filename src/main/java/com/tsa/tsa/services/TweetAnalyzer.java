@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TweetAnalyzer {
 
-    public void AnalyzeTweet(){
+    public void AnalyzeTweet(String Tweet[]){
         //take in some tokenized tweet
         //input layer value vector will have the value 1 for each neuron
         //loop through and get a map of each word --- call vectorize input to vectorize weights
