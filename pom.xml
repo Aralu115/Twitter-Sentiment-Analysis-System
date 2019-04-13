@@ -47,8 +47,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ejml</groupId>
-			<artifactId>core</artifactId>
-			<version>0.30</version>
+			<artifactId>ejml-all</artifactId>
+			<version>0.37.1</version>
 		</dependency>
 	</dependencies>
 

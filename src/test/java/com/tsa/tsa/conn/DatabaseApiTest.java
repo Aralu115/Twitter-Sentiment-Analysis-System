@@ -17,12 +17,12 @@ import java.util.Map;
 public class DatabaseApiTest {
 
     @Autowired
-    public DatabaseApi api;
+    private DatabaseApi api;
 
     @Test
     public void testGetInputLayer() {
-        List<Map<String, Object>> thing = api.getInputLayer("ass");
-//        System.out.println(thing.get(0));
+        List<Map<String, Object>> thing = api.getInputLayer("bad");
+//       System.out.println(thing.get(0));
 //        for (Map<String, Object> mapie: thing) {
 //            System.out.println(mapie);
 //        }

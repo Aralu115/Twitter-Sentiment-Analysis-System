@@ -3,6 +3,7 @@ package com.tsa.tsa.controller;
 import com.tsa.tsa.conn.DatabaseApi;
 import com.tsa.tsa.models.Test;
 import com.tsa.tsa.services.Processor;
+import com.tsa.tsa.services.TweetAnalyzer;
 import com.tsa.tsa.services.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,9 @@ public class RestApiController {
 
     @Autowired
     public Processor processor;
+
+    @Autowired
+    public TweetAnalyzer analyze;
 
     @Autowired
     public TweetService tweetService;

@@ -5,6 +5,7 @@ import com.tsa.tsa.services.TweetAnalyzer;
 import com.tsa.tsa.services.TweetService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -12,14 +13,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class TweetAnalyzerTest {
 
+    @Autowired
+    public TweetAnalyzer analyze;
+
     @Test
     public void testApi() {
-
-        TweetAnalyzer TweetAnalyzerTest = new TweetAnalyzer();
-        String BenisArmy[] = {"ASS", "ASS", "DICK"};
-        String BenisArmy2[] = {"ASS", "ASS", "QUALITY"};
-        String BenisArmy3[] = {"FUN", "ASS", "QUALITY"};
-        TweetAnalyzerTest.AnalyzeTweet(BenisArmy);
+        String WordArmy[] = {"BAD", "BAD", "MONSTER"};
+        String WordArmy2[] = {"BAD", "BAD", "QUALITY"};
+        String WordArmy3[] = {"FUN", "BAD", "QUALITY"};
+        analyze.AnalyzeTweet(WordArmy3);
 
     }
 }
