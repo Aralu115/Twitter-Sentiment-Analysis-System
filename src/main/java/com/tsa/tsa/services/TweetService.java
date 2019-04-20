@@ -1,5 +1,6 @@
 package com.tsa.tsa.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
@@ -14,6 +15,9 @@ public class TweetService {
     ConfigurationBuilder cb;
     TwitterFactory tf;
     Twitter twitter;
+
+    @Autowired
+    private Processor processor;
 
     public ArrayList<String> terms = new ArrayList<>();
     public int testDataPosition = 0;
@@ -35,14 +39,14 @@ public class TweetService {
     }
 
     public List<String> grabTweets(String term, String num) {
-        System.out.println(num);
         int tweetNum = Integer.parseInt(num);
         try {
             Query query = new Query(term);
             query.setCount(tweetNum);
             QueryResult result = this.twitter.search(query);
+            System.out.println(result.getCount());
             return result.getTweets().stream()
-                    .map(item -> item.getText())
+                    .map(item -> processor.processTweet(item.getText()))
                     .collect(Collectors.toList());
         } catch (TwitterException ex) {
             System.out.println("Failed to get Tweets" + ex);

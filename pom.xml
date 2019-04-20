@@ -46,6 +46,11 @@
 			<version>4.0.6</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-tools</artifactId>
+			<version>1.9.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.ejml</groupId>
 			<artifactId>ejml-all</artifactId>
 			<version>0.37.1</version>
