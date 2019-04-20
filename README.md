@@ -27,10 +27,5 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 # TSAFrontEnd
 
-## Installation
-  1. Install Node Version (10.15.0 or higher)
-  2. Ensure your git repository on your local machine is up to date with branch 1.0.0-Frontend
-  3. Open a CMD/Terminal window and navigate to the directory where your git repo is installed
-  4. run npm build
-  5. run npm start
-  6. The base url for the project is localhost:4200 (Can be changed if necessary)
+# Twitter-Sentiment-Analysis-System
+A Twitter Sentiments Analysis System

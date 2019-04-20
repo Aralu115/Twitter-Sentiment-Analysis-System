@@ -1,0 +1,28 @@
+div {
+  margin:0 auto;
+  width: 1400px;
+}
+
+mat-card {
+  width: 800px;
+  height: 340px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 2px solid #673ab7;
+}
+
+.full-width {
+  width: 100%;
+  font-size: 18px;
+
+}
+
+button {
+  width: 100%;
+  font-size: 16px;
+}
+
+

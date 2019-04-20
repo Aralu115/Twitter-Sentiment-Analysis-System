@@ -7,8 +7,8 @@
         <input matInput placeholder="Enter a search term" [(ngModel)]="term" name="searchTerm">
       </mat-form-field>
       Amount of Tweets:
-      <mat-slider min="1" max="100" thumbLabel color="primary"></mat-slider><br>
-      <button mat-raised-button color="primary" routerLink="/results/{{term}}">Submit</button>
+      <mat-slider min="1" max="100" thumbLabel color="primary" [(ngModel)]="value" name="searchAmount" (change)="convert()"></mat-slider><br>
+      <button mat-raised-button color="primary" routerLink="/results/{{term}}/{{routeNum}}">Submit</button>
     </form>
   </mat-card-content>
 </mat-card>
