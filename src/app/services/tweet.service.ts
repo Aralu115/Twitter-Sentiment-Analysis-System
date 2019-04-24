@@ -17,4 +17,8 @@ export class TweetService {
   getTweet(): Observable<String> {
     return this.http.get<String>(`/api/tweet`, {responseType: 'text' as 'json'});
   }
+
+  sendTestData(tweet: String, sentiment: String): Observable<any> {
+    return this.http.get(`/api/test/${tweet}/${sentiment}`, {responseType: 'text' as 'json'});
+  }
 }
