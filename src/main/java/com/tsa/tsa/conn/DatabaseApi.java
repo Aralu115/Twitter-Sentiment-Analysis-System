@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class DatabaseApi {
      * Gather all of the weights for a specified word. {{word=ASS, word_id=1, weight_value=5.1034, hl1_id=1}}
      */
     public List<Map<String, Object>> getInputLayer(String word) {
-        String query = "select distinct word.word, i.word_id, i.weight_value,	hl1.hl1_id from words as word inner join input_weights as i on word.id = i.word_id inner join hl1_weights as hl1 on hl1.hl1_id = i.hl1_id where word.word like UPPER(\"%" + word + "%\");";
+        String query = "select distinct word.word, i.word_id, i.weight_value,	hl1.hl1_id from words as word inner join input_weights as i on word.id = i.word_id inner join hl1_weights as hl1 on hl1.hl1_id = i.hl1_id where word.word like UPPER(\"" + word + "\");";
         return selectQuery(query);
     }
 
@@ -71,6 +73,75 @@ public class DatabaseApi {
                 "hl2.output_layer_id " +
                 "from hl2_weights as hl2;";
         return selectQuery(query);
+    }
+
+    public int getWordId(String word) {
+        String query = "select id from words where word like UPPER(\""+ word + "\");";
+        return Integer.parseInt(selectQuery(query).get(0).get("id").toString());
+    }
+
+    public boolean insertWord(String word) {
+        String query = "insert into words (word) values (UPPER(\"" + word + "\"));";
+        try {
+            executeQuery(query);
+            for (int hl1 = 1; hl1 <= 500; hl1++) {
+                //Defines the random number
+                Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
+                query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values (" + getWordId(word) + "," + dub + "," + hl1 + ");";
+                executeQuery(query);
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+    public boolean updateHiddenLayer1Weight(int hl1Neuron, int hl2neuron, double weight) {
+        String query = "update hl1_weights" +
+                " set weight_value = " + weight +
+                " where hl1_id = " + hl1Neuron +
+                " and hl2_id = " + hl2neuron + ";";
+        try {
+            executeQuery(query);
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+    public boolean updateHiddenLayer2Weight(int hl2Neuron, int outputNeuron, double weight) {
+        String query = "update hl2_weights" +
+                " set weight_value = " + weight +
+                " where hl2_id = " + hl2Neuron +
+                " and output_layer_id = " + outputNeuron + ";";
+        try {
+            executeQuery(query);
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+    public boolean updateInputWeight(String word, int hl1Neuron, double weight) {
+        String query = "update input_weights " +
+                "inner join words on words.id = input_weights.word_id " +
+                "set input_weights.weight_value = " + weight +
+                " where words.word like UPPER(\"" + word + "\") " +
+                "and input_weights.hl1_id = " + hl1Neuron + ";";
+        try {
+            executeQuery(query);
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+    public boolean insertInputWeight(int wordId, int hl1Neuron, double weight) {
+        return false;
     }
 
     /*

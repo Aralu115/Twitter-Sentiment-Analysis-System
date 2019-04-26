@@ -46,17 +46,42 @@ public class DatabaseApiTest {
 //        }
     }
 
-    @Test
-    public void testGetHiddenLayer1() {
-        List<Map<String, Object>> thing = api.getHiddenLayer1();
+//    @Test
+//    public void testGetHiddenLayer1() {
+//        List<Map<String, Object>> thing = api.getHiddenLayer1();
 //        System.out.println(thing.get(249999));
-    }
+//    }
 
-    @Test
-    public void testGetHiddenLayer2() {
-        List<Map<String, Object>> thing = api.getHiddenLayer2();
-        System.out.println(thing.get(999));
-    }
+//    @Test
+//    public void testUpdateInputWeight() {
+//        assert(api.updateInputWeight("monster", 1, 0.5));
+//    }
+
+//    @Test
+//    public void testUpdateHl1Weight() {
+//        assert(api.updateHiddenLayer1Weight(1, 1, 0.5));
+//    }
+
+//    @Test
+//    public void testUpdateHl2Weight() {
+//        assert(api.updateHiddenLayer2Weight(1, 1, 0.5));
+//    }
+
+//    @Test
+//    public void testInsertWord() {
+//        assert(api.insertWord("word"));
+//    }
+
+//    @Test
+//    public void testGetWordId() {
+//        System.out.println("----------------------- WORD ID: " + api.getWordId("word"));
+//    }
+
+//    @Test
+//    public void testGetHiddenLayer2() {
+//        List<Map<String, Object>> thing = api.getHiddenLayer2();
+//        System.out.println(thing.get(999));
+//    }
 
 
 //    @Test
