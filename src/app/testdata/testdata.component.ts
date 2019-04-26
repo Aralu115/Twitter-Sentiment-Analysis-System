@@ -11,7 +11,7 @@ import {Tweet} from '../model/Tweet';
 export class TestdataComponent implements OnInit {
 
   tweet: String;
-  tweetCheck = 0;
+  success: String;
   constructor(private tweetService: TweetService) { }
 
   ngOnInit() {
@@ -24,7 +24,38 @@ export class TestdataComponent implements OnInit {
       .subscribe(tweet => this.tweet = tweet);
   }
 
+  //sends the positive sentiment and tweet to back end
+  sendPositive() {
+    this.tweetService.sendTestData(this.tweet, "1.0")
+      .subscribe(success => this.success = success);
+    console.log(this.success);
+    this.tweetService.getTweet()
+      .subscribe(tweet => this.tweet = tweet);
+  }
+
+  //sends the neutral sentiment and tweet to back end
+  sendNeutral() {
+    this.tweetService.sendTestData(this.tweet, "0.5")
+      .subscribe(success => this.success = success);
+    console.log(this.success);
+    this.tweetService.getTweet()
+      .subscribe(tweet => this.tweet = tweet);
+  }
+
+  //sends the negative sentiment and tweet to back end
+  sendNegative() {
+    this.tweetService.sendTestData(this.tweet, "0.0")
+      .subscribe(success => this.success = success);
+    console.log(this.success);
+    this.tweetService.getTweet()
+      .subscribe(tweet => this.tweet = tweet);
+  }
+
   refresh() {
     window.location.reload();
   }
+
+  //positive = 1.0
+  //negative = 0.0
+  //neutral = 0.5
 }
