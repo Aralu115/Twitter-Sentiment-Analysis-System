@@ -46,6 +46,12 @@ public class RestApiController {
         return tweetService.grabTweets(term, num);
     }
 
+    @RequestMapping("/api/test/{tweet}/{sentiment}")
+    public String testData(@PathVariable("tweet") String tweet, @PathVariable("sentiment") String sentiment) {
+        System.out.println(tweet + sentiment);
+        return "success!";
+    }
+
     @RequestMapping("/api/tweet")
     public String getTweet() {
         return tweetService.getTweet();
