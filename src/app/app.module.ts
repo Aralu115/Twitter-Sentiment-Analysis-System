@@ -4,7 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatPaginatorModule} from '@angular/material';
-import {MatSliderModule, MatInputModule, MatFormFieldModule, MatTableModule} from '@angular/material';
+import {MatSliderModule, MatInputModule, MatFormFieldModule, MatTableModule, MatProgressSpinnerModule, MatSortModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
@@ -36,7 +36,9 @@ import { TestdataComponent } from './testdata/testdata.component';
     MatSliderModule,
     MatTableModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
