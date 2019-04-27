@@ -14,16 +14,12 @@ import {MatPaginator, MatSort} from '@angular/material';
 export class ResultsComponent implements OnInit {
   term: String;
   num: String;
-  tweets: Tweet[];
   results: TS[] = [];
   displayedColumns: string[] = ['id','tweet','sentiment'];
 
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private tweetService: TweetService) { }
@@ -40,7 +36,7 @@ export class ResultsComponent implements OnInit {
 
   getTweets(): void {
     this.tweetService.getTweets(this.term, this.num)
-      .subscribe(tweets => this.tweets = tweets);
+      .subscribe(results => this.results = results);
   }
 
 }

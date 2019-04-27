@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Tweet} from '../model/Tweet';
+import {TS} from '../model/TS';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class TweetService {
 
   constructor(private http: HttpClient) { }
 
-  getTweets(term: String, num: String): Observable<Tweet[]> {
-    return this.http.get<Tweet[]>(`/api/tweets/${term}/${num}`);
+  getTweets(term: String, num: String): Observable<TS[]> {
+    return this.http.get<TS[]>(`/api/tweets/${term}/${num}`);
   }
 
   getTweet(): Observable<String> {
