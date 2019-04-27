@@ -42,4 +42,8 @@ public class TS {
     public void setSentiment(String sentiment) {
         this.sentiment = sentiment;
     }
+
+    public String toString() {
+        return "Tweet: " + this.tweet + " Sentiment: " + this.sentiment + " ID: " + this.id;
+    }
 }

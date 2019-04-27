@@ -46,7 +46,7 @@ public class TweetService {
             QueryResult result = this.twitter.search(query);
             System.out.println(result.getCount());
             return result.getTweets().stream()
-                    .map(item -> processor.processTweet(item.getText()))
+                    .map(item -> item.getText())
                     .collect(Collectors.toList());
         } catch (TwitterException ex) {
             System.out.println("Failed to get Tweets" + ex);
