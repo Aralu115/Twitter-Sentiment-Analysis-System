@@ -18,6 +18,22 @@ public class DatabaseApi {
     private JdbcTemplate jdbcTemplate;
 
     /*
+     * Get Total Number of Hl1 Neuron
+     */
+    public int getNumberOfHl1Neurons() {
+        String query = "select count(id) as count from hl1;";
+        return Integer.parseInt(selectQuery(query).get(0).get("count").toString());
+    }
+
+    /*
+     * Get Total Number of Hl2 Neurons
+     */
+    public int getNumberOfHl2Neurons() {
+        String query = "select count(id) as count from hl2;";
+        return Integer.parseInt(selectQuery(query).get(0).get("count").toString());
+    }
+
+    /*
      * Gather all of the weights for a specified word. {{word=ASS, word_id=1, weight_value=5.1034, hl1_id=1}}
      */
     public List<Map<String, Object>> getInputLayer(String word) {
@@ -89,7 +105,7 @@ public class DatabaseApi {
         try {
             executeQuery(query);
             query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values ";
-            for (int hl1 = 1; hl1 <= 500; hl1++) {
+            for (int hl1 = 1; hl1 <= getNumberOfHl1Neurons(); hl1++) {
                 //Defines the random number
                 Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
                 query += "(" + getWordId(word) + "," + dub + "," + hl1 + "),";
@@ -165,6 +181,16 @@ public class DatabaseApi {
      */
     public void executeQuery(String query) {
         jdbcTemplate.execute(query);
+    }
+
+    public void makeThing() {
+        String query = "";
+        for (int hl1 = 1; hl1 <= 500; hl1++) {
+            //Defines the random number
+            Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
+            query += "(" + hl1 + "," + dub + "),";
+        }
+        System.out.print(query);
     }
 
 }

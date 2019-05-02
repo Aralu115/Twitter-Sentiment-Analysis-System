@@ -18,10 +18,10 @@ public class TweetAnalyzerTest {
 
     @Test
     public void testApi() {
-        String WordArmy[] = {"BAD", "BAD", "MONSTER"};
-        String WordArmy2[] = {"BAD", "BAD", "QUALITY"};
-        String WordArmy3[] = {"FUN", "BAD", "QUALITY"};
-        analyze.AnalyzeTweet(WordArmy3);
+//        String WordArmy[] = {"BAD", "BAD", "MONSTER"};
+//        String WordArmy2[] = {"BAD", "BAD", "QUALITY"};
+//        String WordArmy3[] = {"FUN", "BAD", "QUALITY"};
+//        analyze.AnalyzeTweet(WordArmy3);
 
     }
 }

@@ -19,32 +19,32 @@ public class DatabaseApiTest {
     @Autowired
     private DatabaseApi api;
 
-    @Test
-    public void testGetInputLayer() {
-        List<Map<String, Object>> thing = api.getInputLayer("bad");
-//       System.out.println(thing.get(0));
-//        for (Map<String, Object> mapie: thing) {
-//            System.out.println(mapie);
-//        }
-    }
+//    @Test
+//    public void testGetInputLayer() {
+//        List<Map<String, Object>> thing = api.getInputLayer("bad");
+////       System.out.println(thing.get(0));
+////        for (Map<String, Object> mapie: thing) {
+////            System.out.println(mapie);
+////        }
+//    }
 
-    @Test
-    public void testGetHiddenLayer1Neuron() {
-        List<Map<String, Object>> thing = api.getHiddenLayer1Neuron(1);
-//        System.out.println(thing.get(0));
-//        for (Map<String, Object> mapie: thing) {
-//            System.out.println(mapie);
-//        }
-    }
+//    @Test
+//    public void testGetHiddenLayer1Neuron() {
+//        List<Map<String, Object>> thing = api.getHiddenLayer1Neuron(1);
+////        System.out.println(thing.get(0));
+////        for (Map<String, Object> mapie: thing) {
+////            System.out.println(mapie);
+////        }
+//    }
 
-    @Test
-    public void testGetHiddenLayer2Neuron() {
-        List<Map<String, Object>> thing = api.getHiddenLayer2Neuron(1);
-//        System.out.println(thing.get(0));
-//        for (Map<String, Object> mapie: thing) {
-//            System.out.println(mapie);
-//        }
-    }
+//    @Test
+//    public void testGetHiddenLayer2Neuron() {
+//        List<Map<String, Object>> thing = api.getHiddenLayer2Neuron(1);
+////        System.out.println(thing.get(0));
+////        for (Map<String, Object> mapie: thing) {
+////            System.out.println(mapie);
+////        }
+//    }
 
 //    @Test
 //    public void testGetHiddenLayer1() {
@@ -80,15 +80,22 @@ public class DatabaseApiTest {
 //    @Test
 //    public void testGetHiddenLayer2() {
 //        List<Map<String, Object>> thing = api.getHiddenLayer2();
-//        System.out.println(thing.get(999));
+//        System.out.println(thing.get(0).size());
 //    }
 
+//    @Test
+//    public void testGetHiddenLayer1Neurons() {
+//        int thing = api.getNumberOfHl1Neurons();
+//        System.out.println(thing);
+//        thing = api.getNumberOfHl2Neurons();
+//        System.out.println(thing);
+//    }
 
 //    @Test
 //    public void populateDatabaseHl1Weights() {
 //        String query = "";
-//        for (int hl1 = 1; hl1 <= 500; hl1++) {
-//            for (int hl2 = 1; hl2 <= 500; hl2++) {
+//        for (int hl1 = 1; hl1 <= 100; hl1++) {
+//            for (int hl2 = 1; hl2 <= 200; hl2++) {
 //                Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
 //                query = "INSERT INTO hl1_weights (hl1_id, weight_value, hl2_id) values (" + hl1 + "," + dub + "," + hl2 + ");";
 //                api.executeQuery(query);
@@ -99,7 +106,7 @@ public class DatabaseApiTest {
 //    @Test
 //    public void populateDatabaseHl2Weights() {
 //        String query = "";
-//        for (int hl2 = 1; hl2 <= 500; hl2++) {
+//        for (int hl2 = 1; hl2 <= 200; hl2++) {
 //            for (int out = 1; out <= 2; out++) {
 //                Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
 //                query = "INSERT INTO hl2_weights (hl2_id, weight_value, output_layer_id) values (" + hl2 + "," + dub + "," + out + ");";
@@ -110,7 +117,13 @@ public class DatabaseApiTest {
 
 //    @Test
 //    public void testInsertWord() {
-//        api.insertWord("HIT");
+//        api.insertWord("FUN");
+//        api.insertWord("BAD");
+//        api.insertWord("QUALITY");
 //    }
 
+//    @Test
+//    public void makeBias() {
+//        api.makeThing();
+//    }
 }
