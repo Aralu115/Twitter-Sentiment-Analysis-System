@@ -88,12 +88,15 @@ public class DatabaseApi {
         String query = "insert into words (word) values (UPPER(\"" + word + "\"));";
         try {
             executeQuery(query);
+            query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values ";
             for (int hl1 = 1; hl1 <= 500; hl1++) {
                 //Defines the random number
                 Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
-                query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values (" + getWordId(word) + "," + dub + "," + hl1 + ");";
-                executeQuery(query);
+                query += "(" + getWordId(word) + "," + dub + "," + hl1 + "),";
             }
+            query = query.substring(0, query.length() - 1);
+            query += ";";
+            executeQuery(query);
             return true;
         } catch (Exception ex) {
             System.out.println(ex);

@@ -109,16 +109,8 @@ public class DatabaseApiTest {
 //    }
 
 //    @Test
-//    public void populateDatabaseWords() {
-//        api.executeQuery("insert into words (word) values (\"ASS\"), (\"DICK\"), (\"FUN\"), (\"QUALITY\");");
-//        String query = "";
-//        for (int word = 1; word <= 4; word++) {
-//            for (int hl1 = 1; hl1 <= 500; hl1++) {
-//                Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
-//                query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values (" + word + "," + dub + "," + hl1 + ");";
-//                api.executeQuery(query);
-//            }
-//        }
+//    public void testInsertWord() {
+//        api.insertWord("HIT");
 //    }
 
 }
