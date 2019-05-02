@@ -1,6 +1,7 @@
 package com.tsa.tsa.controller;
 
 import com.tsa.tsa.conn.DatabaseApi;
+import com.tsa.tsa.models.TS;
 import com.tsa.tsa.models.Test;
 import com.tsa.tsa.services.Processor;
 import com.tsa.tsa.services.TweetAnalyzer;
@@ -42,8 +43,13 @@ public class RestApiController {
     }
 
     @RequestMapping("/api/tweets/{term}/{num}")
-    public List<String> grabTweets(@PathVariable("term") String term, @PathVariable("num") String num) {
-        return tweetService.grabTweets(term, num);
+    public List<TS> grabTweets(@PathVariable("term") String term, @PathVariable("num") String num) {
+        List<String> tweets = tweetService.grabTweets(term, num);
+        List<TS> results = processor.processTweets(tweets);
+        for (TS ts : results) {
+            System.out.println(ts.toString());
+        }
+        return results;
     }
 
     @RequestMapping("/api/test/{tweet}/{sentiment}")

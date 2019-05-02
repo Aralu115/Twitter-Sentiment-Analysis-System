@@ -17,25 +17,32 @@ public class TweetAnalyzer {
     public DatabaseApi api;
 
     public void AnalyzeTweet(String Tweet[]){
+        for (String t: Tweet) {
+            System.out.println(t);
+            if (api.getWordId(t) == -1) {
+                api.insertWord(t);
+            }
+        }
+        System.out.println("Finished Checking words");
         //take in some tokenized tweet
         //input layer value vector will have the value 1 for each neuron
         //loop through and get a map of each word --- call vectorize input to vectorize weights
         //call MapToMatrix to condense the input weight vectors into a matrix
         //call CalculateOutput to utilize the weight matrix and get the output vector
         //repeat process until output layer reached
-        String[] hl = new String[500];
-        for(int x=0; x<(500); x++){
-            hl[x] = Integer.toString(x+1);
-        }
-        SimpleMatrix WeightMatrix = MapToMatrix(Tweet, "Input");
-        SimpleMatrix InputVector = new SimpleMatrix(Tweet.length, 1);
-        InputVector = InputVector.plus(1);
-        InputVector = CalculateOutput(WeightMatrix, InputVector);
-        WeightMatrix = MapToMatrix(hl, "HL1");
-        InputVector = CalculateOutput(WeightMatrix, InputVector);
-        WeightMatrix = MapToMatrix(hl, "HL2");
-        InputVector = CalculateOutput(WeightMatrix, InputVector);
-        System.out.println(InputVector);
+//        String[] hl = new String[500];
+//        for(int x=0; x<(500); x++){
+//            hl[x] = Integer.toString(x+1);
+//        }
+//        SimpleMatrix WeightMatrix = MapToMatrix(Tweet, "Input");
+//        SimpleMatrix InputVector = new SimpleMatrix(Tweet.length, 1);
+//        InputVector = InputVector.plus(1);
+//        InputVector = CalculateOutput(WeightMatrix, InputVector);
+//        WeightMatrix = MapToMatrix(hl, "HL1");
+//        InputVector = CalculateOutput(WeightMatrix, InputVector);
+//        WeightMatrix = MapToMatrix(hl, "HL2");
+//        InputVector = CalculateOutput(WeightMatrix, InputVector);
+//        System.out.println(InputVector);
     }
 
     public SimpleMatrix MapToMatrix(String[] Neurons, String Layer){

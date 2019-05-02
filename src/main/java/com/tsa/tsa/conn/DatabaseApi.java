@@ -77,7 +77,11 @@ public class DatabaseApi {
 
     public int getWordId(String word) {
         String query = "select id from words where word like UPPER(\""+ word + "\");";
-        return Integer.parseInt(selectQuery(query).get(0).get("id").toString());
+        try {
+            return Integer.parseInt(selectQuery(query).get(0).get("id").toString());
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     public boolean insertWord(String word) {
