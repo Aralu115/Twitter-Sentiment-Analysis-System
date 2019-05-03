@@ -123,7 +123,15 @@ public class DatabaseApiTest {
 //    }
 
 //    @Test
-//    public void makeBias() {
-//        api.makeThing();
+//    public void testBias() {
+//        System.out.println("-----------------------------Bias 1-----------------------------------");
+////        System.out.println(api.getHl1BiasList());
+////        System.out.println("-----------------------------Bias 2-----------------------------------");
+////        System.out.println(api.getHl2BiasList());
+////        System.out.println("-----------------------------Bias 3-----------------------------------");
+////        System.out.println(api.getOutputLayerBiasList());
+//        api.updateHl1BiasList(1, 0.0000);
+//        api.updateHl2BiasList(1,0.0000);
+//        api.updateOutputLayerBiasList(1, 0.0000);
 //    }
 }

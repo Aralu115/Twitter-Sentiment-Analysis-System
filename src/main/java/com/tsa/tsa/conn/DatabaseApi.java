@@ -34,7 +34,73 @@ public class DatabaseApi {
     }
 
     /*
-     * Gather all of the weights for a specified word. {{word=ASS, word_id=1, weight_value=5.1034, hl1_id=1}}
+     * Gather all bias for hl1. {{id=1, bias=1.2324}}
+     */
+    public List<Map<String, Object>> getHl1BiasList() {
+        String query = "select * from hl1;";
+        return selectQuery(query);
+    }
+
+    /*
+     * Gather all bias for hl2. {{id=1, bias=1.2324}}
+     */
+    public List<Map<String, Object>> getHl2BiasList() {
+        String query = "select * from hl2;";
+        return selectQuery(query);
+    }
+
+    /*
+     * Gather all bias for output layer. {{id=1, bias=1.2324}}
+     */
+    public List<Map<String, Object>> getOutputLayerBiasList() {
+        String query = "select * from output_layer;";
+        return selectQuery(query);
+    }
+
+    /*
+     * Update bias for hl1 neuron
+     */
+    public boolean updateHl1BiasList(int neuron, double bias) {
+        try {
+            String query = "update hl1 set bias = " + bias + " where id = " + neuron + ";";
+            executeQuery(query);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /*
+     * Update bias for hl2 neuron
+     */
+    public boolean updateHl2BiasList(int neuron, double bias) {
+        try {
+            String query = "update hl2 set bias = " + bias + " where id = " + neuron + ";";
+            executeQuery(query);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /*
+     * Update bias for output layer neuron
+     */
+    public boolean updateOutputLayerBiasList(int neuron, double bias) {
+        try {
+            String query = "update output_layer set bias = " + bias + " where id = " + neuron + ";";
+            executeQuery(query);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+
+
+
+    /*
+     * Gather all of the weights for a specified word. {{word=Happy, word_id=1, weight_value=5.1034, hl1_id=1}}
      */
     public List<Map<String, Object>> getInputLayer(String word) {
         String query = "select distinct word.word, i.word_id, i.weight_value,	hl1.hl1_id from words as word inner join input_weights as i on word.id = i.word_id inner join hl1_weights as hl1 on hl1.hl1_id = i.hl1_id where word.word like UPPER(\"" + word + "\");";
