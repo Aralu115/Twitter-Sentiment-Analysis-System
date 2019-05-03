@@ -46,9 +46,6 @@ public class RestApiController {
     public List<TS> grabTweets(@PathVariable("term") String term, @PathVariable("num") String num) {
         List<String> tweets = tweetService.grabTweets(term, num);
         List<TS> results = processor.processTweets(tweets);
-        for (TS ts : results) {
-            System.out.println(ts.toString());
-        }
         return results;
     }
 

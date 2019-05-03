@@ -51,11 +51,7 @@ public class Processor {
         for (int i = 1; i < tweets.size(); i++) {
             String sentiment = "neutral"; //analyzer should return string in future
             String[] token = processTweet(tweets.get(i));
-            for (String t : token) {
-                System.out.println(t);
-            }
             try {
-                System.out.println(tweets.get(i));
                 analyzer.AnalyzeTweet(token);
             } catch (Exception e) {
                 System.out.println(e);
