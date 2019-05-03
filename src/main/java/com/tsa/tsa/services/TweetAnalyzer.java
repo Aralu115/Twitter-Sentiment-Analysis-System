@@ -18,7 +18,6 @@ public class TweetAnalyzer {
 
     public void AnalyzeTweet(String Tweet[]){
         for (String t: Tweet) {
-            System.out.println(t);
             if (api.getWordId(t) == -1) {
                 api.insertWord(t);
             }
