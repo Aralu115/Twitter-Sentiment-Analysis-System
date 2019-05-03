@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,32 +17,83 @@ public class TweetAnalyzer {
     @Autowired
     public DatabaseApi api;
 
-    public void AnalyzeTweet(String Tweet[]){
-        for (String t: Tweet) {
-            if (api.getWordId(t) == -1) {
-                api.insertWord(t);
-            }
-        }
-        System.out.println("Finished Checking words");
+    public double[] AnalyzeTweet(String[] Tweet){
         //take in some tokenized tweet
         //input layer value vector will have the value 1 for each neuron
         //loop through and get a map of each word --- call vectorize input to vectorize weights
         //call MapToMatrix to condense the input weight vectors into a matrix
         //call CalculateOutput to utilize the weight matrix and get the output vector
         //repeat process until output layer reached
-//        String[] hl = new String[500];
-//        for(int x=0; x<(500); x++){
-//            hl[x] = Integer.toString(x+1);
-//        }
-//        SimpleMatrix WeightMatrix = MapToMatrix(Tweet, "Input");
-//        SimpleMatrix InputVector = new SimpleMatrix(Tweet.length, 1);
-//        InputVector = InputVector.plus(1);
-//        InputVector = CalculateOutput(WeightMatrix, InputVector);
-//        WeightMatrix = MapToMatrix(hl, "HL1");
-//        InputVector = CalculateOutput(WeightMatrix, InputVector);
-//        WeightMatrix = MapToMatrix(hl, "HL2");
-//        InputVector = CalculateOutput(WeightMatrix, InputVector);
-//        System.out.println(InputVector);
+        String[] hl1 = new String[100];
+        for(int x=0; x<(100); x++){
+            hl1[x] = Integer.toString(x+1);
+        }
+        String[] hl2 = new String[200];
+        for(int x=0; x<(200); x++){
+            hl2[x] = Integer.toString(x+1);
+        }
+        double[][] n = VectorizeInputWeights(api.getHl1BiasList());
+        SimpleMatrix biasVector1 = new SimpleMatrix(n);
+        double[][] n1 = VectorizeInputWeights(api.getHl2BiasList());
+        SimpleMatrix biasVector2 = new SimpleMatrix(n1);
+        double[][] n2 = VectorizeInputWeights(api.getOutputLayerBiasList());
+        SimpleMatrix biasVector3 = new SimpleMatrix(n2);
+        SimpleMatrix WeightMatrix = MapToMatrix(Tweet, "Input");
+        SimpleMatrix InputVector = new SimpleMatrix(Tweet.length, 1);
+        InputVector = InputVector.plus(1);
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector1);
+
+        WeightMatrix = MapToMatrix(hl1, "HL1");
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector2);
+
+        WeightMatrix = MapToMatrix(hl2, "HL2");
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector3);
+
+        System.out.println(InputVector);
+
+        double trueValue = InputVector.get(0, 0);
+        double falseValue = InputVector.get(1, 0);
+        double[] OutputVector = {trueValue, falseValue};
+        return OutputVector;
+    }
+
+    public HashMap<String, SimpleMatrix> getAllLayerValues(String[] tweet){
+
+        HashMap<String, SimpleMatrix> allLayers = new HashMap<>();
+
+        String[] hl1 = new String[100];
+        for(int x=0; x<(100); x++){
+            hl1[x] = Integer.toString(x+1);
+        }
+        String[] hl2 = new String[200];
+        for(int x=0; x<(200); x++){
+            hl2[x] = Integer.toString(x+1);
+        }
+        double[][] n = VectorizeInputWeights(api.getHl1BiasList());
+        SimpleMatrix biasVector1 = new SimpleMatrix(n);
+        double[][] n1 = VectorizeInputWeights(api.getHl2BiasList());
+        SimpleMatrix biasVector2 = new SimpleMatrix(n1);
+        double[][] n2 = VectorizeInputWeights(api.getOutputLayerBiasList());
+        SimpleMatrix biasVector3 = new SimpleMatrix(n2);
+
+        SimpleMatrix WeightMatrix = MapToMatrix(tweet, "Input");
+        SimpleMatrix InputVector = new SimpleMatrix(tweet.length, 1);
+        InputVector = InputVector.plus(1);
+        allLayers.put("InputLayer", InputVector);
+
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector1);
+        allLayers.put("HL1", InputVector);
+
+        WeightMatrix = MapToMatrix(hl1, "HL1");
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector2);
+        allLayers.put("HL2", InputVector);
+
+        WeightMatrix = MapToMatrix(hl2, "HL2");
+        InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector3);
+        System.out.println(InputVector);
+        allLayers.put("OutputLayer", InputVector);
+
+        return allLayers;
     }
 
     public SimpleMatrix MapToMatrix(String[] Neurons, String Layer){
@@ -65,9 +117,9 @@ public class TweetAnalyzer {
                 default:
                     throw new IllegalStateException("Unexpected value: " + Layer);
             }
-            double[] tempArray = VectorizeInputWeights(WeightMap);
+            double[][] tempArray = VectorizeInputWeights(WeightMap);
             for(int y =0; y<tempArray.length; y++){
-                ArrayOfMatrix[y][index] = tempArray[y];
+                ArrayOfMatrix[y][index] = tempArray[y][0];
             }
         }
         SimpleMatrix GeneratedMatrix = new SimpleMatrix(ArrayOfMatrix);
@@ -87,33 +139,35 @@ public class TweetAnalyzer {
         }
     }
 
-    public double[] VectorizeInputWeights(List<Map<String, Object>> weightMap){
+    public double[][] VectorizeInputWeights(List<Map<String, Object>> weightMap){
         //take map of word and create a weight vector for word
         // Print values
-        double[] valueVector = new double[weightMap.size()];
+        double[][] valueVector = new double[weightMap.size()][1];
         int placeHolder = 0;
         for (Map<String, Object> entry : weightMap) {
-            valueVector[placeHolder] = (double) entry.get("weight_value");
+            if(entry.get("weight_value") != null) {
+                valueVector[placeHolder][0] = (double) entry.get("weight_value");
+            } else{
+                valueVector[placeHolder][0] = (double) entry.get("bias");
+            }
             placeHolder++;
         }
 
         return valueVector;
     }
 
-    public SimpleMatrix CalculateOutput(SimpleMatrix weightMatrix, SimpleMatrix inputVector){
+    public SimpleMatrix CalculateOutput(SimpleMatrix weightMatrix, SimpleMatrix inputVector, SimpleMatrix bias){
         //calculate the next layers values
-
         SimpleMatrix TempOutPutVector = weightMatrix.mult(inputVector);
-
+        TempOutPutVector = TempOutPutVector.plus(bias);
         double[][] SigmoidPlaceHolder = new double[TempOutPutVector.numRows()][1];
 
         for(int y=0; y<TempOutPutVector.numRows(); y++){
             SigmoidPlaceHolder[y][0] = TempOutPutVector.get(y, 0);
-            SigmoidPlaceHolder[y][0] = 1/(1+(Math.pow(Math.E, -1*Math.abs(SigmoidPlaceHolder[y][0]))));
+            SigmoidPlaceHolder[y][0] = (Math.pow(Math.E, -1*SigmoidPlaceHolder[y][0]))/(1+(Math.pow(Math.E, -1*SigmoidPlaceHolder[y][0])));
         }
 
         SimpleMatrix OutPutVector = new SimpleMatrix(SigmoidPlaceHolder);
-
         return OutPutVector;
     }
 
