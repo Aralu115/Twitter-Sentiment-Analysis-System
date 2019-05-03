@@ -101,9 +101,12 @@ public class DatabaseApi {
     }
 
     public boolean insertWord(String word) {
-        String query = "insert into words (word) values (UPPER(\"" + word + "\"));";
-        try {
+        String query;
+        if (getWordId(word) == -1) {
+            query = "insert into words (word) values (UPPER(\"" + word + "\"));";
             executeQuery(query);
+        };
+        try {
             query = "INSERT INTO input_weights (word_id, weight_value, hl1_id) values ";
             for (int hl1 = 1; hl1 <= getNumberOfHl1Neurons(); hl1++) {
                 //Defines the random number
