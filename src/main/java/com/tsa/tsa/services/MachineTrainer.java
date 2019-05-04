@@ -17,7 +17,7 @@ public class MachineTrainer {
     @Autowired
     public DatabaseApi api;
 
-    public static final double learningRate = 1*Math.pow(10, 2);
+    public static final double learningRate = 1;
 
     public void TrainMachine(String tweet[], Double userInput){
         //set learning rate
