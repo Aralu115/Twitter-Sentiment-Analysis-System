@@ -19,14 +19,14 @@ public class DatabaseApiTest {
     @Autowired
     private DatabaseApi api;
 
-//    @Test
-//    public void testGetInputLayer() {
-//        List<Map<String, Object>> thing = api.getInputLayer("bad");
-////       System.out.println(thing.get(0));
-////        for (Map<String, Object> mapie: thing) {
-////            System.out.println(mapie);
-////        }
-//    }
+    @Test
+    public void testGetInputLayer() {
+        List<Map<String, Object>> thing = api.getInputLayer("bad");
+//       System.out.println(thing.get(0));
+//        for (Map<String, Object> mapie: thing) {
+//            System.out.println(mapie);
+//        }
+    }
 
 //    @Test
 //    public void testGetHiddenLayer1Neuron() {

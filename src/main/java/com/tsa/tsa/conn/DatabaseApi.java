@@ -184,7 +184,7 @@ public class DatabaseApi {
             executeQuery(query);
             return true;
         } catch (Exception ex) {
-            System.out.println(ex);
+            //System.out.println(ex);
             return false;
         }
     }
@@ -198,7 +198,7 @@ public class DatabaseApi {
             executeQuery(query);
             return true;
         } catch(Exception ex) {
-            System.out.println(ex);
+            //System.out.println(ex);
             return false;
         }
     }
@@ -212,7 +212,7 @@ public class DatabaseApi {
             executeQuery(query);
             return true;
         } catch(Exception ex) {
-            System.out.println(ex);
+            //System.out.println(ex);
             return false;
         }
     }
@@ -227,7 +227,7 @@ public class DatabaseApi {
             executeQuery(query);
             return true;
         } catch(Exception ex) {
-            System.out.println(ex);
+            //System.out.println(ex);
             return false;
         }
     }
@@ -259,7 +259,7 @@ public class DatabaseApi {
             Double dub = BigDecimal.valueOf(Math.random() * 20 - 10).setScale(4, RoundingMode.HALF_UP).doubleValue();
             query += "(" + hl1 + "," + dub + "),";
         }
-        System.out.print(query);
+        //System.out.print(query);
     }
 
 }

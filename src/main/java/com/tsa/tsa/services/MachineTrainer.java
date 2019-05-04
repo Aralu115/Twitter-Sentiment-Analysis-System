@@ -17,7 +17,7 @@ public class MachineTrainer {
     @Autowired
     public DatabaseApi api;
 
-    public static final double learningRate = 1*Math.pow(10, 16);
+    public static final double learningRate = 1*Math.pow(10, 2);
 
     public void TrainMachine(String tweet[], Double userInput){
         //set learning rate
@@ -79,6 +79,7 @@ public class MachineTrainer {
         AdjustWeights("Output", OutputWCosts, HL2ToOutput, tweet);
         AdjustWeights("HL1", HL1WCosts, inputToHL1, tweet);
         AdjustWeights("HL2", HL2WCosts, HL1ToHL2, tweet);
+        System.out.println("Finished Training!!!");
     }
 
     public SimpleMatrix getLayercost(SimpleMatrix WeightMatrix, SimpleMatrix bias, HashMap<String, SimpleMatrix> prediction, String Layer, SimpleMatrix cost) {
@@ -166,8 +167,7 @@ public class MachineTrainer {
         //bias = bias + (learning_rate * cost)
         SimpleMatrix newWeightValues = (Costs.scale(learningRate)).plus(WeightMatrix);
 
-
-
+        System.out.println("Starting " + Layer + " Weight Adjustment...");
 
         for(int j=0; j<newWeightValues.numRows(); j++){
             for(int k=0; k<newWeightValues.numCols(); k++) {
@@ -186,6 +186,8 @@ public class MachineTrainer {
                 }
             }
         }
+
+        System.out.println("Finished " + Layer + " Weight Adjustment...");
     }
 
     public void AdjustBias(String Layer, SimpleMatrix Costs, SimpleMatrix BiasVector){
@@ -193,7 +195,7 @@ public class MachineTrainer {
         //bias = bias + (learning_rate * cost)
         SimpleMatrix newBiasValues = (Costs.scale(learningRate)).plus(BiasVector);
 
-
+        System.out.println("Starting " + Layer + " Bias Adjustment...");
 
         for(int j=0; j<newBiasValues.numRows(); j++){
             switch(Layer){
@@ -211,8 +213,7 @@ public class MachineTrainer {
             }
         }
 
-
-
+        System.out.println("Finished " + Layer + " Bias Adjustment...");
 
     }
 

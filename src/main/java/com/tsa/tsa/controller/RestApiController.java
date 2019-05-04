@@ -51,8 +51,9 @@ public class RestApiController {
 
     @RequestMapping("/api/test/{tweet}/{sentiment}")
     public String testData(@PathVariable("tweet") String tweet, @PathVariable("sentiment") String sentiment) {
-        System.out.println(tweet + sentiment);
-        return "success!";
+        Double input = Double.parseDouble(sentiment);
+        String status = processor.processTrainerTweet(tweet, input);
+        return status;
     }
 
     @RequestMapping("/api/tweet")

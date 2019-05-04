@@ -44,7 +44,7 @@ public class TweetService {
             Query query = new Query(term);
             query.setCount(tweetNum);
             QueryResult result = this.twitter.search(query);
-            System.out.println(result.getCount());
+            System.out.println("Tweet Count: " + result.getCount());
             return result.getTweets().stream()
                     .map(item -> item.getText())
                     .collect(Collectors.toList());
@@ -55,8 +55,17 @@ public class TweetService {
     }
 
     public String getTweet() {
-        List<String> list = grabTweets(terms.get(testDataPosition), "1");
-        if (testDataPosition == 4) {testDataPosition = 0;} else {testDataPosition++;}
-        return list.get(0);
+        try {
+            List<String> list = grabTweets(terms.get(testDataPosition), "1");
+            if (testDataPosition == 4) {testDataPosition = 0;} else {testDataPosition++;}
+            String string = "";
+            for (String word : processor.processTweet(list.get(0))) {
+                string += word + " ";
+            }
+            return string;
+        } catch (Exception ex) {
+            System.out.println("Failed to Grab Tweet...");
+            return null;
+        }
     }
 }

@@ -1,10 +1,12 @@
 package com.tsa.tsa.services;
 
+import com.tsa.tsa.conn.DatabaseApi;
 import com.tsa.tsa.models.TS;
 import opennlp.tools.tokenize.SimpleTokenizer;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.util.normalizer.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class Processor {
 
     @Autowired
     private TweetAnalyzer analyzer;
+
+    @Autowired
+    private MachineTrainer trainer;
+    @Autowired
+    private DatabaseApi api;
 
     public Processor() {
 
@@ -38,7 +45,6 @@ public class Processor {
 
             tweet = tweet.toString().toUpperCase().replaceAll(stopWordRegex, " ");
             tweet = tweet.toString().replaceAll("\\s+", " ");
-
             return tweet.toString().split("\\s+");
         } catch (Exception exception) {
             System.out.println(exception + tweet.toString());
@@ -49,10 +55,13 @@ public class Processor {
     public List<TS> processTweets(List<String> tweets) {
         List<TS> results = new ArrayList<>();
         for (int i = 1; i < tweets.size(); i++) {
-            String sentiment = "neutral"; //analyzer should return string in future
+            String sentiment = "Undetermined"; //analyzer should return string in future
             String[] token = processTweet(tweets.get(i));
+            for(String word: token) {
+                api.insertWord(word);
+            }
             try {
-                analyzer.AnalyzeTweet(token);
+                sentiment = analyzer.AnalyzeTweet(token);
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -60,5 +69,23 @@ public class Processor {
             results.add(newTS);
         }
         return results;
+    }
+
+    public String processTrainerTweet(String tweet, double input) {
+        String[] tokens = processTweet(tweet);
+        System.out.println("Tweet: " + tweet);
+        System.out.println("Input: " + input);
+        try {
+            for(String token: tokens) {
+                System.out.println("Checking word " + token);
+                api.insertWord(token);
+            }
+            if (tokens.length !=0) {
+                trainer.TrainMachine(tokens, input);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "Success";
     }
 }

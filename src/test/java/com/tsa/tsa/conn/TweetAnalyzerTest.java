@@ -30,11 +30,11 @@ public class TweetAnalyzerTest {
         double userInput1 = 0;
         double userInput2 = 0.5;
         double userInput3 = 1;
-        int x=50;
-//        for(int y=0; x>y;y++) {
-//            System.out.println(y);
-//            train.TrainMachine(WordArmy3, userInput1);
-//        }
+        int x=1;
+        for(int y=0; x>y;y++) {
+            System.out.println(y);
+            train.TrainMachine(WordArmy3, userInput1);
+        }
 
     }
 }
