@@ -29,9 +29,9 @@ export class ResultsComponent implements OnInit {
     this.num = this.activatedRoute.snapshot.url[2].path;
     console.log(this.term, this.num);
     this.getTweets();
-    this.isLoadingResults = false;
     this.isRateLimitReached = false;
     this.resultsLength = this.results.length;
+
   }
 
   getTweets(): void {
