@@ -60,7 +60,7 @@ public class DatabaseApi {
     /*
      * Update bias for hl1 neuron
      */
-    public boolean updateHl1BiasList(int neuron, double bias) {
+    public boolean updateHl1Bias(int neuron, double bias) {
         try {
             String query = "update hl1 set bias = " + bias + " where id = " + neuron + ";";
             executeQuery(query);
@@ -73,7 +73,7 @@ public class DatabaseApi {
     /*
      * Update bias for hl2 neuron
      */
-    public boolean updateHl2BiasList(int neuron, double bias) {
+    public boolean updateHl2Bias(int neuron, double bias) {
         try {
             String query = "update hl2 set bias = " + bias + " where id = " + neuron + ";";
             executeQuery(query);
@@ -86,7 +86,7 @@ public class DatabaseApi {
     /*
      * Update bias for output layer neuron
      */
-    public boolean updateOutputLayerBiasList(int neuron, double bias) {
+    public boolean updateOutputLayerBias(int neuron, double bias) {
         try {
             String query = "update output_layer set bias = " + bias + " where id = " + neuron + ";";
             executeQuery(query);

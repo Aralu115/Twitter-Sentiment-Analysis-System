@@ -11,13 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Math.abs;
+
 @Service
 public class TweetAnalyzer {
 
     @Autowired
     public DatabaseApi api;
 
-    public double[] AnalyzeTweet(String[] Tweet){
+    public String AnalyzeTweet(String[] Tweet){
         //take in some tokenized tweet
         //input layer value vector will have the value 1 for each neuron
         //loop through and get a map of each word --- call vectorize input to vectorize weights
@@ -49,12 +51,17 @@ public class TweetAnalyzer {
         WeightMatrix = MapToMatrix(hl2, "HL2");
         InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector3);
 
-        System.out.println(InputVector);
-
         double trueValue = InputVector.get(0, 0);
         double falseValue = InputVector.get(1, 0);
-        double[] OutputVector = {trueValue, falseValue};
-        return OutputVector;
+        if(abs(trueValue-falseValue) > 0.3){
+            return "Neutral";
+        } else if(trueValue>falseValue){
+            return "Positive";
+        } else if(falseValue>trueValue){
+            return "Negative";
+        } else{
+            return "cannot be determined";
+        }
     }
 
     public HashMap<String, SimpleMatrix> getAllLayerValues(String[] tweet){
@@ -71,12 +78,16 @@ public class TweetAnalyzer {
         }
         double[][] n = VectorizeInputWeights(api.getHl1BiasList());
         SimpleMatrix biasVector1 = new SimpleMatrix(n);
+        allLayers.put("biasVector1", biasVector1);
         double[][] n1 = VectorizeInputWeights(api.getHl2BiasList());
         SimpleMatrix biasVector2 = new SimpleMatrix(n1);
+        allLayers.put("biasVector2", biasVector2);
         double[][] n2 = VectorizeInputWeights(api.getOutputLayerBiasList());
         SimpleMatrix biasVector3 = new SimpleMatrix(n2);
+        allLayers.put("biasVector3", biasVector3);
 
         SimpleMatrix WeightMatrix = MapToMatrix(tweet, "Input");
+        allLayers.put("InputToHL1Weights", WeightMatrix);
         SimpleMatrix InputVector = new SimpleMatrix(tweet.length, 1);
         InputVector = InputVector.plus(1);
         allLayers.put("InputLayer", InputVector);
@@ -85,12 +96,13 @@ public class TweetAnalyzer {
         allLayers.put("HL1", InputVector);
 
         WeightMatrix = MapToMatrix(hl1, "HL1");
+        allLayers.put("HL1ToHL2Weights", WeightMatrix);
         InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector2);
         allLayers.put("HL2", InputVector);
 
         WeightMatrix = MapToMatrix(hl2, "HL2");
+        allLayers.put("HL2ToOutputWeights", WeightMatrix);
         InputVector = CalculateOutput(WeightMatrix, InputVector, biasVector3);
-        System.out.println(InputVector);
         allLayers.put("OutputLayer", InputVector);
 
         return allLayers;
