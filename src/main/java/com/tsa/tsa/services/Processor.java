@@ -55,18 +55,25 @@ public class Processor {
     public List<TS> processTweets(List<String> tweets) {
         List<TS> results = new ArrayList<>();
         for (int i = 1; i < tweets.size(); i++) {
-            String sentiment = "Undetermined"; //analyzer should return string in future
-            String[] token = processTweet(tweets.get(i));
-            for(String word: token) {
-                api.insertWord(word);
-            }
             try {
+                String sentiment = "Undetermined"; //analyzer should return string in future
+                String[] token = processTweet(tweets.get(i));
+                ArrayList<String> tmp = new ArrayList<>();
+                for(int t = 0; t < token.length; t++) {
+                    if (api.getWordId(token[t]) != -1) {
+                        tmp.add(token[t]);
+                    }
+                }
+                String[] cleanedTokens = new String[tmp.size()];
+                for (int k = 0; k < tmp.size(); k++) {
+                    cleanedTokens[k] = tmp.get(k);
+                }
                 sentiment = analyzer.AnalyzeTweet(token);
+                TS newTS = new TS(i, tweets.get(i), sentiment);
+                results.add(newTS);
             } catch (Exception e) {
                 System.out.println(e);
             }
-            TS newTS = new TS(i, tweets.get(i), sentiment);
-            results.add(newTS);
         }
         return results;
     }

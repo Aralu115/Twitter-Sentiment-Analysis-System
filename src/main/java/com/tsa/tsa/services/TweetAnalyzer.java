@@ -53,7 +53,9 @@ public class TweetAnalyzer {
 
         double trueValue = InputVector.get(0, 0);
         double falseValue = InputVector.get(1, 0);
-        if(abs(trueValue-falseValue) > 0.3){
+        System.out.println("True Value: " + trueValue);
+        System.out.println("False Value: " + falseValue);
+        if(abs(trueValue-falseValue) < .2){
             return "Neutral";
         } else if(trueValue>falseValue){
             return "Positive";
