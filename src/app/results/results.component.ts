@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Tweet} from '../model/Tweet';
 import {TS} from '../model/TS';
 import {MatPaginator, MatSort} from '@angular/material';
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-results',
@@ -35,7 +36,7 @@ export class ResultsComponent implements OnInit {
   }
 
   getTweets(): void {
-    this.tweetService.getTweets(this.term, this.num)
+    this.tweetService.getTweets(this.term, this.num).pipe(finalize(() => this.isLoadingResults = false))
       .subscribe(results => this.results = results);
   }
 

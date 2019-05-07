@@ -1,5 +1,9 @@
 <h1 class="top">Search Results for "{{term}}"</h1>
-<div class="container mat-elevation-z8">
+<div class="spinner-container" *ngIf="isLoadingResults">
+  <h2>This may take a few moments...</h2>
+  <mat-progress-spinner mode="indeterminate" diameter="300"></mat-progress-spinner>
+</div>
+<div class="container mat-elevation-z8" *ngIf="!isLoadingResults">
   <div class="table-container">
     <table mat-table [dataSource]="results" class="table">
       <ng-container matColumnDef="id">
